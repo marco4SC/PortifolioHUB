@@ -1,9 +1,9 @@
-# Portf¢lio de Projetos - Marco Sousa 
+# PortfÂ¢lio de Projetos - Marco Antonio de Souza Carvalho 
  
-Este reposit¢rio cont‚m projetos acadˆmicos e pessoais. 
+Este repositÂ¢rio contâ€šm projetos acadË†micos e pessoais. 
  
 >> Estrutura: 
 - `academicos/` - Trabalhos da faculdade (POO, estruturas de dados, etc.) 
-- `projetos/projeto-inicial-web/` - P gina HTML inicial (versÆo 1.0) 
+- `projetos/projeto-inicial-web/` - PÂ gina HTML inicial (versÃ†o 1.0) 
 - `pessoais/` - Estudos independentes 
-- `recursos/documentacao/` - Documenta‡Æo adicional 
+- `recursos/documentacao/` - Documentaâ€¡Ã†o adicional 
