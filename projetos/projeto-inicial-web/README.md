@@ -1,6 +1,10 @@
-# Projeto Inicial - P†gina Web 
+# Meu Portf¢lio de Projetos - Marco Sousa 
  
-Vers∆o 1.0 - P†gina HTML simples como primeiro projeto versionado. 
+Bem-vindo ao meu portf¢lio. Este reposit¢rio centraliza meus projetos acadàmicos e pessoais. 
  
-## Como visualizar 
-Basta abrir o arquivo `index.html` no navegador. 
+## Tecnologias: Java, Python, JavaScript (HTML/CSS), Git 
+ 
+## Como Navegar 
+- [Projetos Web](projetos/projeto-inicial-web/) - Landing page inicial 
+- [Projetos Acadàmicos](academicos/) - Trabalhos da faculdade 
+- [Projetos Pessoais](pessoais/) - Estudos e desafios pr¢prios 

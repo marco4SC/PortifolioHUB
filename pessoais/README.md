@@ -1,3 +1,2 @@
 # Projetos Pessoais 
- 
-Espa‡o para estudos independentes e desafios de programa‡Æo. 
+Espa‡o reservado para projetos pessoais. 

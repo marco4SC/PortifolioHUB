@@ -1,10 +1,9 @@
-# Meu Portf¢lio de Projetos - Marco Sousa 
+# Portf¢lio de Projetos - Marco Sousa 
  
-Bem-vindo ao meu portf¢lio. Este reposit¢rio centraliza meus projetos acadàmicos e pessoais. 
+Este reposit¢rio contÇm projetos acadàmicos e pessoais. 
  
-## Tecnologias: Java, Python, JavaScript (HTML/CSS), Git 
- 
-## Como Navegar 
-- [Projetos Web](projetos/projeto-inicial-web/) - Landing page inicial 
-- [Projetos Acadàmicos](academicos/) - Trabalhos da faculdade 
-- [Projetos Pessoais](pessoais/) - Estudos e desafios pr¢prios 
+>> Estrutura: 
+- `academicos/` - Trabalhos da faculdade (POO, estruturas de dados, etc.) 
+- `projetos/projeto-inicial-web/` - P†gina HTML inicial (vers∆o 1.0) 
+- `pessoais/` - Estudos independentes 
+- `recursos/documentacao/` - Documentaá∆o adicional 

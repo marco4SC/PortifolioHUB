@@ -1,3 +1,2 @@
 # Documenta‡Æo e Recursos 
- 
-Documenta‡Æo adicional, slides, referˆncias, etc. 
+Espa‡o para documentos de apoio. 
