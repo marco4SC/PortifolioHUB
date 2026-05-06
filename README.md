@@ -1,7 +1,10 @@
-# PortifolioHUB
-
-# PortfolioHUB
-
-Bem-vindo ao meu portf√≥lio de projetos acad√™micos e pessoais. Este reposit√≥rio foi criado para demonstrar habilidades de versionamento Git, organiza√ß√£o e documenta√ß√£o.
-
-
+# Meu Portf¢lio de Projetos - Marco Sousa 
+ 
+Bem-vindo ao meu portf¢lio. Este reposit¢rio centraliza meus projetos acadàmicos e pessoais. 
+ 
+## Tecnologias: Java, Python, JavaScript (HTML/CSS), Git 
+ 
+## Como Navegar 
+- [Projetos Web](projetos/projeto-inicial-web/) - Landing page inicial 
+- [Projetos Acadàmicos](academicos/) - Trabalhos da faculdade 
+- [Projetos Pessoais](pessoais/) - Estudos e desafios pr¢prios 
