@@ -1,11 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=projetos/projeto-inicial-web/">
-    <title>Redirecionando para o portfólio...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Souza | Portfólio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            border-left: 5px solid #2c3e50;
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .card a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .tech {
+            display: inline-block;
+            background: #e0e0e0;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>Se não for redirecionado automaticamente, <a href="projetos/projeto-inicial-web/">clique aqui</a>.</p>
+    <div class="container">
+        <header>
+            <h1>Marco Antônio de Souza Carvalho</h1>
+            <p>Estudante de Tecnologia | Desenvolvedor em formação</p>
+            <p>GitHub • Versionamento • Projetos acadêmicos e pessoais</p>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <h2>Sobre mim</h2>
+                <p>Sou apaixonado por programação e desenvolvimento de software. Este portfólio reúne meus projetos acadêmicos e pessoais, demonstrando habilidades em <strong>Python, Java, HTML/CSS e Git</strong>. Busco sempre aplicar boas práticas de versionamento e organização de código.</p>
+            </div>
+
+            <div class="section">
+                <h2>Projetos em destaque</h2>
+                <div class="projects">
+                    <div class="card">
+                        <h3>📄 Página Inicial (v1.0)</h3>
+                        <p>Meu primeiro projeto versionado com Git. Página HTML simples que marca o início do meu portfólio.</p>
+                        <a href="projetos/projeto-inicial-web/" target="_blank">🔗 Visualizar projeto</a>
+                        <div class="tech">HTML</div>
+                    </div>
+                    <div class="card">
+                        <h3>📚 Repositório Acadêmico</h3>
+                        <p>Trabalhos de faculdade: POO, estruturas de dados, exercícios de Python e Java.</p>
+                        <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/academicos" target="_blank">🔗 Ver no GitHub</a>
+                        <div class="tech">Java, Python, MATLAB</div>
+                    </div>
+                    <div class="card">
+                        <h3>⚙️ Estudos Pessoais</h3>
+                        <p>Desafios e projetos independentes que estou desenvolvendo para aprimorar minhas habilidades.</p>
+                        <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/pessoais" target="_blank">🔗 Explorar</a>
+                        <div class="tech">Em breve</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Versionamento e Boas Práticas</h2>
+                <p>Este repositório utiliza Git com commits semânticos, tags de versão (v1.0, v1.1) e organização em diretórios. O site é hospedado pelo <strong>GitHub Pages</strong> e atualizado automaticamente a cada push.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 Marco Souza | <a href="https://github.com/marco4SC/PortifolioHUB" style="color:white" target="_blank">Repositório no GitHub</a> | <a href="https://www.linkedin.com/in/seu-perfil" style="color:white" target="_blank">LinkedIn</a></p>
+            <p>Última atualização: Maio/2026</p>
+        </footer>
+    </div>
 </body>
 </html>
