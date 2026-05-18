@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Marco Antonio · Portfólio Engenharia Computacional</title>
-    <!-- Biblioteca para geração de PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>Marco Antonio · Portfólio Engenharia Clínica</title>
     <style>
+        /* ========== ESTILOS GERAIS (TELA) ========== */
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +27,6 @@
             border-radius: 28px;
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
             overflow: hidden;
-            transition: all 0.2s;
         }
 
         .hero {
@@ -152,7 +150,7 @@
             background: #dce9ef;
         }
 
-        /* Estilo do botão de download */
+        /* ========== BOTÃO (TELA) ========== */
         .download-btn-wrapper {
             text-align: center;
             margin: 2rem 0 1rem 0;
@@ -167,7 +165,7 @@
             border-radius: 40px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -175,9 +173,9 @@
 
         .download-btn:hover {
             background: #145244;
-            transform: translateY(-1px);
         }
 
+        /* Rodapé normal */
         footer {
             background: #f4f9fc;
             text-align: center;
@@ -185,6 +183,72 @@
             font-size: 0.75rem;
             color: #4b6f7e;
             border-top: 1px solid #dee9ef;
+        }
+
+        /* ========== ESTILOS DE IMPRESSÃO (PDF NATIVO) ========== */
+        @media print {
+            /* Remove fundo da página e margens padrão */
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            /* Força cores no gradiente e evita que fique preto */
+            .hero {
+                background: linear-gradient(135deg, #0b2b40, #1a4a5f) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Esconde elementos que não devem ir para o PDF */
+            .download-btn-wrapper,
+            footer,
+            .content a[href*="github.com"] { /* esconde o link do GitHub na impressão, se quiser */
+                display: none !important;
+            }
+
+            /* Ajustes de fonte e espaçamento para papel */
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 1rem 1.5rem;
+            }
+
+            .section {
+                margin-bottom: 1.2rem;
+                page-break-inside: avoid;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Evita quebras estranhas */
+            h1, h2, h3, h4 {
+                page-break-after: avoid;
+            }
         }
 
         @media (max-width: 700px) {
@@ -196,11 +260,11 @@
 </head>
 <body>
 <div class="container">
-    <!-- Área que será capturada no PDF (currículo completo) -->
+    <!-- Conteúdo completo do currículo (visível na tela e no PDF) -->
     <div id="curriculo">
         <div class="hero">
             <h1>Marco Antonio de Souza Carvalho</h1>
-            <div class="sub">Estudante de Engenharia da Computação |</div>
+            <div class="sub">Estudante de Engenharia da Computação | Aspirante a Engenharia Clínica</div>
             <div class="contact-info">
                 <span>📍 SQSW 101, Bloco G, Apto 405 – Brasília/DF</span>
                 <span>📞 (61) 99609-2709</span>
@@ -288,17 +352,18 @@
                 </div>
             </div>
 
+            <!-- Link do GitHub (vai ser oculto na impressão) -->
             <div style="text-align: center; margin-top: 1rem;">
                 <p style="background:#eef2f5; display:inline-block; padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">
                 📂 Portfólio versionado no GitHub: <a href="https://github.com/marco4SC/PortifolioHUB" target="_blank">marco4SC/PortifolioHUB</a>
                 </p>
             </div>
         </div>
-    </div> <!-- fim #curriculo -->
+    </div>
 
-    <!-- Botão de download (fora do PDF) -->
+    <!-- Botão de download (não aparece no PDF) -->
     <div class="download-btn-wrapper">
-        <button id="download-pdf" class="download-btn">
+        <button class="download-btn" onclick="window.print()">
             📄 Baixar Currículo em PDF
         </button>
     </div>
@@ -307,64 +372,5 @@
         <p>👨‍💻 Página desenvolvida para estágio em Engenharia Computacional – atualizada em maio/2026</p>
     </footer>
 </div>
-
-<!-- Script híbrido: tenta html2pdf; se falhar, orienta o print nativo -->
-<script>
-    document.getElementById('download-pdf').addEventListener('click', function () {
-        const btn = this;
-        btn.disabled = true;
-        btn.textContent = '⏳ Gerando PDF...';
-
-        // Verifica se a biblioteca carregou
-        if (typeof html2pdf === 'undefined') {
-            alert('A biblioteca de PDF não carregou. Vamos usar a impressão do navegador (Ctrl+P → Salvar como PDF).');
-            btn.disabled = false;
-            btn.textContent = '📄 Baixar Currículo em PDF';
-            window.print();
-            return;
-        }
-
-        const elemento = document.getElementById('curriculo');
-        if (!elemento) {
-            alert('Conteúdo do currículo não encontrado.');
-            btn.disabled = false;
-            btn.textContent = '📄 Baixar Currículo em PDF';
-            return;
-        }
-
-        const opt = {
-            margin:       0.3,
-            filename:     'Marco_Antonio_Curriculo.pdf',
-            image:        { type: 'jpeg', quality: 0.95 },
-            html2canvas:  { 
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                allowTaint: true,
-                scrollY: 0,
-                windowWidth: elemento.scrollWidth,
-                windowHeight: elemento.scrollHeight
-            },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-
-        // Pequeno delay para garantir renderização
-        setTimeout(() => {
-            html2pdf().set(opt).from(elemento).save()
-                .then(() => {
-                    btn.disabled = false;
-                    btn.textContent = '📄 Baixar Currículo em PDF';
-                })
-                .catch((err) => {
-                    console.warn('Erro ao gerar PDF automático:', err);
-                    alert('Não foi possível gerar o PDF automaticamente. O navegador abrirá a janela de impressão. Escolha "Salvar como PDF" nas opções.');
-                    btn.disabled = false;
-                    btn.textContent = '📄 Baixar Currículo em PDF';
-                    window.print();
-                });
-        }, 400);
-    });
-</script>
-
 </body>
 </html>
