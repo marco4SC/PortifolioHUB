@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Marco Antonio · Portfólio Engenharia Clínica</title>
+    <!-- ===== BIBLIOTECA PARA GERAR PDF ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- ==================================== -->
     <style>
         * {
             margin: 0;
@@ -29,7 +32,6 @@
             transition: all 0.2s;
         }
 
-        /* cabeçalho com nome e contato */
         .hero {
             background: linear-gradient(135deg, #0b2b40, #1a4a5f);
             color: white;
@@ -77,7 +79,6 @@
             text-decoration: underline;
         }
 
-        /* conteúdo principal */
         .content {
             padding: 2rem;
         }
@@ -152,6 +153,33 @@
             background: #dce9ef;
         }
 
+        /* ===== ESTILO DO BOTÃO DE DOWNLOAD ===== */
+        .download-btn-wrapper {
+            text-align: center;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .download-btn {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn:hover {
+            background: #145244;
+            transform: translateY(-1px);
+        }
+        /* ======================================= */
+
         footer {
             background: #f4f9fc;
             text-align: center;
@@ -170,111 +198,138 @@
 </head>
 <body>
 <div class="container">
-    <div class="hero">
-        <h1>Marco Antonio de Souza Carvalho</h1>
-        <div class="sub">Estudante de Engenharia da Computação | Aspirante a Engenharia Clínica</div>
-        <div class="contact-info">
-            <span>📍 SQSW 101, Bloco G, Apto 405 – Brasília/DF</span>
-            <span>📞 (61) 99609-2709</span>
-            <span>✉️ <a href="mailto:Marc.souz.carvalh@gmail.com">Marc.souz.carvalh@gmail.com</a></span>
-            <span>🔗 <a href="https://linkedin.com/in/marco-antonio-souza-carvalho-614bb3329" target="_blank">LinkedIn</a></span>
+    <!-- ===== INÍCIO DA ÁREA QUE VAI PARA O PDF ===== -->
+    <div id="curriculo">
+        <div class="hero">
+            <h1>Marco Antonio de Souza Carvalho</h1>
+            <div class="sub">Estudante de Engenharia da Computação | Aspirante a Engenharia Clínica</div>
+            <div class="contact-info">
+                <span>📍 SQSW 101, Bloco G, Apto 405 – Brasília/DF</span>
+                <span>📞 (61) 99609-2709</span>
+                <span>✉️ <a href="mailto:Marc.souz.carvalh@gmail.com">Marc.souz.carvalh@gmail.com</a></span>
+                <span>🔗 <a href="https://linkedin.com/in/marco-antonio-souza-carvalho-614bb3329" target="_blank">LinkedIn</a></span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title">🎓 Formação Acadêmica</div>
+                <div class="grid-2col">
+                    <div class="card">
+                        <h3>📘 Engenharia da Computação</h3>
+                        <p><strong>Centro Universitário de Brasília (UniCeub)</strong><br>jul/2024 – previsão 2028 | 3º semestre (cursando)<br>Disciplinas: Eletrônica Básica, Programação, Algoritmos, Circuitos Digitais<br><strong>
+                    </div>
+                    <div class="card">
+                        <h3>🌍 Intercâmbio acadêmico</h3>
+                        <p><strong>Universidade de Aveiro (Portugal)</strong><br>jul/2022 a set/2023 – experiência internacional e vivência acadêmica.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">⚙️ Habilidades Técnicas</div>
+                <div class="card" style="background:#f9fbfd;">
+                    <div class="skill-list">
+                        <span class="badge">Pacote Office (interm.)</span>
+                        <span class="badge">Inglês Fluente</span>
+                        <span class="badge">Git / GitHub</span>
+                        <span class="badge">Python (interm.)</span>
+                        <span class="badge">C++ (básico/interm.)</span>
+                        <span class="badge">Eletrônica básica</span>
+                        <span class="badge">Soldagem / prototipagem</span>
+                        <span class="badge">Multímetro / leitura esquemas</span>
+                        <span class="badge">Cisco Cybersecurity</span>
+                        <span class="badge">Noções de redes e Linux</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🔧 Principais Atividades</div>
+                <div class="grid-2col">
+                    <div class="card">✔ Suporte na manutenção de equipamentos eletroeletrônicos</div>
+                    <div class="card">✔ Abertura e acompanhamento de chamados técnicos (planilhas, GLPI, Trello)</div>
+                    <div class="card">✔ Documentação de procedimentos usando Git/GitHub</div>
+                    <div class="card">✔ Soldagem e montagem de circuitos de baixa tensão</div>
+                    <div class="card">✔ Leitura de manuais em inglês e tradução técnica</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">📁 Projetos & Prática</div>
+                <div class="grid-2col">
+                    <div class="card">
+                        <h3>🔌 Oficina de Eletrônica</h3>
+                        <p>Protótipos com Arduino – sensores e instrumentação. Montagem de circuitos e medições.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🐍 GitHub pessoal</h3>
+                        <p>Códigos Python para automação e análise. Controle de versão com Git e boas práticas.</p>
+                    </div>
+                    <div class="card">
+                        <h3>🔐 Certificação Cisco</h3>
+                        <p>Introduction to Cybersecurity – fundamentos de segurança e redes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">🌎 Idiomas & Complementos</div>
+                <div class="grid-2col">
+                    <div class="card">
+                        <h3>🗣️ Idiomas</h3>
+                        <p><strong>Inglês:</strong> Fluente (leitura, escrita e conversação – 1 ano no exterior + Brasas)<br>
+                        <strong>Espanhol:</strong> Básico (compreensão)</p>
+                    </div>
+                    <div class="card">
+                        <h3>📄 Informações adicionais</h3>
+                        <p>✔ Disponibilidade: segunda a sexta.<br>
+                        ✔ Início imediato<br>
+                        ✔ Carteira de habilitação (carro)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 1rem;">
+                <p style="background:#eef2f5; display:inline-block; padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">
+                📂 Portfólio versionado no GitHub: <a href="https://github.com/marco4SC/PortifolioHUB" target="_blank">marco4SC/PortifolioHUB</a>
+                </p>
+            </div>
         </div>
     </div>
+    <!-- ===== FIM DA ÁREA QUE VAI PARA O PDF ===== -->
 
-    <div class="content">
-        <!-- FORMAÇÃO + INTERCÂMBIO -->
-        <div class="section">
-            <div class="section-title">🎓 Formação Acadêmica</div>
-            <div class="grid-2col">
-                <div class="card">
-                    <h3>📘 Engenharia da Computação</h3>
-                    <p><strong>Centro Universitário de Brasília (UniCeub)</strong><br>jul/2024 – previsão 2028 | 3º semestre (cursando)<br>Disciplinas: Eletrônica Básica, Programação, Algoritmos, Circuitos Digitais<br><strong>
-                </div>
-                <div class="card">
-                    <h3>🌍 Intercâmbio acadêmico</h3>
-                    <p><strong>Universidade de Aveiro (Portugal)</strong><br>jul/2022 a set/2023 – experiência internacional e vivência acadêmica.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- HABILIDADES TÉCNICAS -->
-        <div class="section">
-            <div class="section-title">⚙️ Habilidades Técnicas</div>
-            <div class="card" style="background:#f9fbfd;">
-                <div class="skill-list">
-                    <span class="badge">Pacote Office (interm.)</span>
-                    <span class="badge">Inglês Fluente</span>
-                    <span class="badge">Git / GitHub</span>
-                    <span class="badge">Python (interm.)</span>
-                    <span class="badge">C++ (básico/interm.)</span>
-                    <span class="badge">Eletrônica básica</span>
-                    <span class="badge">Soldagem / prototipagem</span>
-                    <span class="badge">Multímetro / leitura esquemas</span>
-                    <span class="badge">Cisco Cybersecurity</span>
-                    <span class="badge">Noções de redes e Linux</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- PRINCIPAIS ATIVIDADES (relacionadas à vaga) -->
-        <div class="section">
-            <div class="section-title">🔧 Principais Atividades</div>
-            <div class="grid-2col">
-                <div class="card">✔ Suporte na manutenção de equipamentos eletroeletrônicos</div>
-                <div class="card">✔ Abertura e acompanhamento de chamados técnicos (planilhas, GLPI, Trello)</div>
-                <div class="card">✔ Documentação de procedimentos usando Git/GitHub</div>
-                <div class="card">✔ Soldagem e montagem de circuitos de baixa tensão</div>
-                <div class="card">✔ Leitura de manuais em inglês e tradução técnica</div>
-            </div>
-        </div>
-
-        <!-- PROJETOS ACADÊMICOS -->
-        <div class="section">
-            <div class="section-title">📁 Projetos & Prática</div>
-            <div class="grid-2col">
-                <div class="card">
-                    <h3>🔌 Oficina de Eletrônica</h3>
-                    <p>Protótipos com Arduino – sensores e instrumentação. Montagem de circuitos e medições.</p>
-                </div>
-                <div class="card">
-                    <h3>🐍 GitHub pessoal</h3>
-                    <p>Códigos Python para automação e análise. Controle de versão com Git e boas práticas.</p>
-                </div>
-                <div class="card">
-                    <h3>🔐 Certificação Cisco</h3>
-                    <p>Introduction to Cybersecurity – fundamentos de segurança e redes.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- IDIOMAS + COMPLEMENTOS -->
-        <div class="section">
-            <div class="section-title">🌎 Idiomas & Complementos</div>
-            <div class="grid-2col">
-                <div class="card">
-                    <h3>🗣️ Idiomas</h3>
-                    <p><strong>Inglês:</strong> Fluente (leitura, escrita e conversação – 1 ano no exterior + Brasas)<br>
-                    <strong>Espanhol:</strong> Básico (compreensão)</p>
-                </div>
-                <div class="card">
-                    <h3>📄 Informações adicionais</h3>
-                    <p>✔ Disponibilidade: segunda a sexta.<br>
-                    ✔ Início imediato<br>
-                    ✔ Carteira de habilitação (carro)</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- LINK PARA REPOSITÓRIO (complemento profissional) -->
-        <div style="text-align: center; margin-top: 1rem;">
-            <p style="background:#eef2f5; display:inline-block; padding:0.4rem 1.2rem; border-radius:40px; font-size:0.8rem;">
-            📂 Portfólio versionado no GitHub: <a href="https://github.com/marco4SC/PortifolioHUB" target="_blank">marco4SC/PortifolioHUB</a>
-            </p>
-        </div>
+    <!-- ===== BOTÃO DE DOWNLOAD (fora do PDF) ===== -->
+    <div class="download-btn-wrapper">
+        <button id="download-pdf" class="download-btn">
+            📄 Baixar Currículo em PDF
+        </button>
     </div>
+    <!-- ======================================== -->
+
     <footer>
-        <p>👨‍💻 Página desenvolvida para estágio em Engenharia Clínica – atualizada em maio/2026</p>
+        <p>👨‍💻 Página desenvolvida para estágio em Engenharia Computacional– atualizada em maio/2026</p>
     </footer>
 </div>
+
+<!-- ===== SCRIPT QUE GERA O PDF ===== -->
+<script>
+    document.getElementById('download-pdf').addEventListener('click', function () {
+        // Seleciona apenas o conteúdo dentro de #curriculo
+        var elemento = document.getElementById('curriculo');
+
+        var opt = {
+            margin:       0.3,
+            filename:     'Marco_Antonio_Curriculo.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(elemento).save();
+    });
+</script>
+<!-- ================================== -->
+
 </body>
 </html>
