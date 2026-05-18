@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Marco Antonio · Portfólio Engenharia Clínica</title>
-    <!-- ===== BIBLIOTECA PARA GERAR PDF ===== -->
+    <!-- Biblioteca para geração de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <!-- ==================================== -->
     <style>
         * {
             margin: 0;
@@ -153,7 +152,7 @@
             background: #dce9ef;
         }
 
-        /* ===== ESTILO DO BOTÃO DE DOWNLOAD ===== */
+        /* Estilo do botão de download */
         .download-btn-wrapper {
             text-align: center;
             margin: 2rem 0 1rem 0;
@@ -178,7 +177,6 @@
             background: #145244;
             transform: translateY(-1px);
         }
-        /* ======================================= */
 
         footer {
             background: #f4f9fc;
@@ -198,7 +196,7 @@
 </head>
 <body>
 <div class="container">
-    <!-- ===== INÍCIO DA ÁREA QUE VAI PARA O PDF ===== -->
+    <!-- Área que será capturada no PDF (currículo completo) -->
     <div id="curriculo">
         <div class="hero">
             <h1>Marco Antonio de Souza Carvalho</h1>
@@ -217,7 +215,7 @@
                 <div class="grid-2col">
                     <div class="card">
                         <h3>📘 Engenharia da Computação</h3>
-                        <p><strong>Centro Universitário de Brasília (UniCeub)</strong><br>jul/2024 – previsão 2028 | 3º semestre (cursando)<br>Disciplinas: Eletrônica Básica, Programação, Algoritmos, Circuitos Digitais<br><strong>
+                        <p><strong>Centro Universitário de Brasília (UniCeub)</strong><br>jul/2024 – previsão 2028 | 3º semestre (cursando)<br>Disciplinas: Eletrônica Básica, Programação, Algoritmos, Circuitos Digitais</p>
                     </div>
                     <div class="card">
                         <h3>🌍 Intercâmbio acadêmico</h3>
@@ -296,40 +294,77 @@
                 </p>
             </div>
         </div>
-    </div>
-    <!-- ===== FIM DA ÁREA QUE VAI PARA O PDF ===== -->
+    </div> <!-- fim #curriculo -->
 
-    <!-- ===== BOTÃO DE DOWNLOAD (fora do PDF) ===== -->
+    <!-- Botão de download (fora do PDF) -->
     <div class="download-btn-wrapper">
         <button id="download-pdf" class="download-btn">
             📄 Baixar Currículo em PDF
         </button>
     </div>
-    <!-- ======================================== -->
 
     <footer>
-        <p>👨‍💻 Página desenvolvida para estágio em Engenharia Computacional– atualizada em maio/2026</p>
+        <p>👨‍💻 Página desenvolvida para estágio em Engenharia Computacional – atualizada em maio/2026</p>
     </footer>
 </div>
 
-<!-- ===== SCRIPT QUE GERA O PDF ===== -->
+<!-- Script híbrido: tenta html2pdf; se falhar, orienta o print nativo -->
 <script>
     document.getElementById('download-pdf').addEventListener('click', function () {
-        // Seleciona apenas o conteúdo dentro de #curriculo
-        var elemento = document.getElementById('curriculo');
+        const btn = this;
+        btn.disabled = true;
+        btn.textContent = '⏳ Gerando PDF...';
 
-        var opt = {
+        // Verifica se a biblioteca carregou
+        if (typeof html2pdf === 'undefined') {
+            alert('A biblioteca de PDF não carregou. Vamos usar a impressão do navegador (Ctrl+P → Salvar como PDF).');
+            btn.disabled = false;
+            btn.textContent = '📄 Baixar Currículo em PDF';
+            window.print();
+            return;
+        }
+
+        const elemento = document.getElementById('curriculo');
+        if (!elemento) {
+            alert('Conteúdo do currículo não encontrado.');
+            btn.disabled = false;
+            btn.textContent = '📄 Baixar Currículo em PDF';
+            return;
+        }
+
+        const opt = {
             margin:       0.3,
             filename:     'Marco_Antonio_Curriculo.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            image:        { type: 'jpeg', quality: 0.95 },
+            html2canvas:  { 
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                allowTaint: true,
+                scrollY: 0,
+                windowWidth: elemento.scrollWidth,
+                windowHeight: elemento.scrollHeight
+            },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
         };
 
-        html2pdf().set(opt).from(elemento).save();
+        // Pequeno delay para garantir renderização
+        setTimeout(() => {
+            html2pdf().set(opt).from(elemento).save()
+                .then(() => {
+                    btn.disabled = false;
+                    btn.textContent = '📄 Baixar Currículo em PDF';
+                })
+                .catch((err) => {
+                    console.warn('Erro ao gerar PDF automático:', err);
+                    alert('Não foi possível gerar o PDF automaticamente. O navegador abrirá a janela de impressão. Escolha "Salvar como PDF" nas opções.');
+                    btn.disabled = false;
+                    btn.textContent = '📄 Baixar Currículo em PDF';
+                    window.print();
+                });
+        }, 400);
     });
 </script>
-<!-- ================================== -->
 
 </body>
 </html>
