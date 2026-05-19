@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -68,6 +69,10 @@
         .selecao-idioma p {
             margin-bottom: 0.5rem;
         }
+        .erro-carregamento {
+            color: #ff5555;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -76,8 +81,11 @@
 
     <div class="selecao-idioma" id="selecao-idioma">
         <p>Escolha o idioma:</p>
-        <button onclick="iniciarJogo('pt-br')">PT-BR</button>
-        <button onclick="iniciarJogo('pt-pt')">PT-PT</button>
+        <button id="btn-ptbr">PT-BR</button>
+        <button id="btn-ptpt">PT-PT</button>
+        <div id="erro-carregamento" class="erro-carregamento" style="display:none;">
+            Erro ao carregar palavras. Verifique se o arquivo dados-forca.json está na mesma pasta.
+        </div>
     </div>
 
     <div id="jogo" style="display:none;">
@@ -86,52 +94,92 @@
         <div id="erradas" class="letras-erradas"></div>
         <div id="mensagem" class="mensagem"></div>
         <p>Pressione uma tecla (a‑z) para tentar</p>
-        <button onclick="reiniciar()">Nova partida</button>
-        <button onclick="voltarIdioma()">Trocar idioma</button>
+        <button id="btn-reiniciar">Nova partida</button>
+        <button id="btn-trocar">Trocar idioma</button>
     </div>
 
     <div class="creditos">Desenvolvido por Marco Antonio</div>
 </div>
 
 <script>
-    (async function() {
-        const response = await fetch('dados-forca.json');
-        const dados = await response.json();
-        const estagiosForca = dados.estagiosForca;
+    (function() {
+        // Elementos do DOM
+        const selecaoIdioma = document.getElementById('selecao-idioma');
+        const jogoDiv = document.getElementById('jogo');
+        const forcaDiv = document.getElementById('forca');
+        const palavraDiv = document.getElementById('palavra');
+        const erradasDiv = document.getElementById('erradas');
+        const mensagemDiv = document.getElementById('mensagem');
+        const erroCarregamento = document.getElementById('erro-carregamento');
 
+        const btnPtBr = document.getElementById('btn-ptbr');
+        const btnPtPt = document.getElementById('btn-ptpt');
+        const btnReiniciar = document.getElementById('btn-reiniciar');
+        const btnTrocar = document.getElementById('btn-trocar');
+
+        // Variáveis do jogo
+        let dados = null;
+        let estagiosForca = [];
+        let palavrasAtuais = [];
         let palavra = "";
         let acertadas = new Set();
         let erradas = new Set();
         const maxTentativas = 6;
-        let palavrasAtuais = [];
+        let jogoAtivo = false;
+        let listenerTeclado = null;
 
+        // Carrega o JSON imediatamente
+        fetch('dados-forca.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Arquivo não encontrado');
+                return response.json();
+            })
+            .then(json => {
+                dados = json;
+                estagiosForca = json.estagiosForca;
+                console.log('Palavras carregadas:', json['pt-br'].palavras.length, 'PT-BR,', json['pt-pt'].palavras.length, 'PT-PT');
+            })
+            .catch(err => {
+                console.error('Falha ao carregar dados:', err);
+                erroCarregamento.style.display = 'block';
+                btnPtBr.disabled = true;
+                btnPtPt.disabled = true;
+            });
+
+        // Funções auxiliares
         function escolherPalavra() {
             const idx = Math.floor(Math.random() * palavrasAtuais.length);
             return palavrasAtuais[idx].toUpperCase();
         }
 
+        function desenharForca(erros) {
+            return estagiosForca[Math.min(erros, estagiosForca.length - 1)];
+        }
+
         function atualizarTela() {
             const erros = erradas.size;
-            document.getElementById('forca').textContent = estagiosForca[Math.min(erros, estagiosForca.length - 1)];
+            forcaDiv.textContent = desenharForca(erros);
 
             const letrasPalavra = palavra.split('').map(l => acertadas.has(l) ? l : '_');
-            document.getElementById('palavra').textContent = letrasPalavra.join(' ');
+            palavraDiv.textContent = letrasPalavra.join(' ');
 
-            document.getElementById('erradas').textContent = 
-                erradas.size > 0 ? 'Letras erradas: ' + [...erradas].join(' ') : '';
+            erradasDiv.textContent = erradas.size > 0 ? 'Letras erradas: ' + [...erradas].join(' ') : '';
 
             if (palavra.split('').every(l => acertadas.has(l))) {
-                document.getElementById('mensagem').textContent = 'Você venceu! A palavra era: ' + palavra;
-                document.removeEventListener('keydown', lidarTecla);
+                mensagemDiv.textContent = 'Você venceu! A palavra era: ' + palavra;
+                removerOuvinteTeclado();
+                jogoAtivo = false;
             } else if (erros >= maxTentativas) {
-                document.getElementById('mensagem').textContent = 'Você perdeu! A palavra era: ' + palavra;
-                document.removeEventListener('keydown', lidarTecla);
+                mensagemDiv.textContent = 'Você perdeu! A palavra era: ' + palavra;
+                removerOuvinteTeclado();
+                jogoAtivo = false;
             } else {
-                document.getElementById('mensagem').textContent = '';
+                mensagemDiv.textContent = '';
             }
         }
 
         function lidarTecla(e) {
+            if (!jogoAtivo) return;
             if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
                 const letra = e.key.toUpperCase();
                 if (acertadas.has(letra) || erradas.has(letra)) return;
@@ -145,30 +193,62 @@
             }
         }
 
-        window.reiniciar = function() {
+        function adicionarOuvinteTeclado() {
+            if (listenerTeclado) removerOuvinteTeclado();
+            listenerTeclado = lidarTecla;
+            document.addEventListener('keydown', listenerTeclado);
+        }
+
+        function removerOuvinteTeclado() {
+            if (listenerTeclado) {
+                document.removeEventListener('keydown', listenerTeclado);
+                listenerTeclado = null;
+            }
+        }
+
+        function reiniciar() {
             if (!palavrasAtuais.length) return;
             palavra = escolherPalavra();
             acertadas.clear();
             erradas.clear();
+            jogoAtivo = true;
             atualizarTela();
-            document.removeEventListener('keydown', lidarTecla);
-            document.addEventListener('keydown', lidarTecla);
-        };
+            adicionarOuvinteTeclado();
+        }
 
-        window.iniciarJogo = function(idioma) {
+        function iniciarJogo(idioma) {
+            if (!dados || !dados[idioma]) {
+                alert('Dados ainda não carregados. Aguarde um instante.');
+                return;
+            }
             palavrasAtuais = dados[idioma].palavras;
-            document.getElementById('selecao-idioma').style.display = 'none';
-            document.getElementById('jogo').style.display = 'block';
+            selecaoIdioma.style.display = 'none';
+            jogoDiv.style.display = 'block';
             reiniciar();
-        };
+        }
 
-        window.voltarIdioma = function() {
-            document.getElementById('jogo').style.display = 'none';
-            document.getElementById('selecao-idioma').style.display = 'block';
-            document.removeEventListener('keydown', lidarTecla);
+        function voltarIdioma() {
+            removerOuvinteTeclado();
+            jogoAtivo = false;
+            jogoDiv.style.display = 'none';
+            selecaoIdioma.style.display = 'block';
             acertadas.clear();
             erradas.clear();
-        };
+        }
+
+        // Associa os eventos aos botões
+        btnPtBr.addEventListener('click', () => iniciarJogo('pt-br'));
+        btnPtPt.addEventListener('click', () => iniciarJogo('pt-pt'));
+        btnReiniciar.addEventListener('click', reiniciar);
+        btnTrocar.addEventListener('click', voltarIdioma);
+
+        // Limpa ouvintes se a aba perder foco (segurança extra)
+        window.addEventListener('blur', () => {
+            if (jogoAtivo) removerOuvinteTeclado();
+        });
+        window.addEventListener('focus', () => {
+            if (jogoAtivo && !listenerTeclado) adicionarOuvinteTeclado();
+        });
     })();
 </script>
 </body>
