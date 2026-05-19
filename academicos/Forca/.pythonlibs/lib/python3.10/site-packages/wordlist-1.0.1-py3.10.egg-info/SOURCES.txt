@@ -1,0 +1,10 @@
+setup.cfg
+setup.py
+bin/wordlist
+wordlist/__init__.py
+wordlist/_util.py
+wordlist/wordlist.py
+wordlist.egg-info/PKG-INFO
+wordlist.egg-info/SOURCES.txt
+wordlist.egg-info/dependency_links.txt
+wordlist.egg-info/top_level.txt

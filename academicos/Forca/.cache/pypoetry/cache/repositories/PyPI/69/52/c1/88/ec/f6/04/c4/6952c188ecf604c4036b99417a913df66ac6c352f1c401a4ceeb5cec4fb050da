@@ -1,0 +1,1 @@
+9999999999{"name": "wordlist", "version": "1.0.1", "summary": "Wordlist generator, creates dictionaries of words", "requires_dist": null, "requires_python": null, "files": [{"file": "wordlist-1.0.1.tar.gz", "hash": "sha256:c1c6383943da8aed9273c2c6523573d47f1c7248df878d0c2ef7a6d658a33215"}], "yanked": false, "_cache_version": "2.0.0"}
