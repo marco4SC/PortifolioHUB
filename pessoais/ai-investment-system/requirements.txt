@@ -1,0 +1,30 @@
+# AI Investment System — dependências
+# pip install -r requirements.txt
+
+# Core
+anthropic>=0.28.0
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+python-dotenv>=1.0.0
+
+# Dados
+requests>=2.31.0
+pandas>=2.2.0
+numpy>=2.0.0
+feedparser>=6.0.11   # RSS de notícias
+
+# Análise quantitativa
+scipy>=1.13.0        # otimização de portfólio (Markowitz)
+
+# Banco de dados
+sqlalchemy>=2.0.0
+
+# Cache (opcional — instale Redis antes)
+# redis>=5.0.0
+
+# Alertas
+# python-telegram-bot>=21.0  # alternativa ao requests direto
+
+# Dev / testes
+pytest>=8.0.0
+httpx>=0.27.0        # testes da FastAPI
