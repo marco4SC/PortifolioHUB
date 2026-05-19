@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo da Forca ·</title>
+    <title>Jogo da Forca · Marco Antonio</title>
     <style>
         body {
             background: #1e1e1e;
@@ -27,10 +26,13 @@
         }
         h1 { margin-top: 0; }
         .forca {
+            font-family: 'Courier New', monospace;
             font-size: 1.2rem;
             white-space: pre;
+            text-align: left;
+            margin: 1rem auto;
+            display: inline-block;
             line-height: 1.3;
-            margin: 1rem 0;
         }
         .palavra {
             font-size: 2rem;
@@ -54,7 +56,7 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 1rem;
+            margin: 0.3rem;
             font-size: 1rem;
         }
         button:hover { background: #00cc66; }
@@ -63,17 +65,31 @@
             opacity: 0.6;
             font-size: 0.8rem;
         }
+        .selecao-idioma p {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
 <div class="terminal">
     <h1>Jogo da Forca</h1>
-    <div id="forca" class="forca"></div>
-    <div id="palavra" class="palavra"></div>
-    <div id="erradas" class="letras-erradas"></div>
-    <div id="mensagem" class="mensagem"></div>
-    <p style="margin-top:1rem;">Pressione uma tecla (a‑z) para tentar</p>
-    <button onclick="reiniciar()">Nova partida</button>
+
+    <div class="selecao-idioma" id="selecao-idioma">
+        <p>Escolha o idioma:</p>
+        <button onclick="iniciarJogo('pt-br')">PT-BR</button>
+        <button onclick="iniciarJogo('pt-pt')">PT-PT</button>
+    </div>
+
+    <div id="jogo" style="display:none;">
+        <div id="forca" class="forca"></div>
+        <div id="palavra" class="palavra"></div>
+        <div id="erradas" class="letras-erradas"></div>
+        <div id="mensagem" class="mensagem"></div>
+        <p>Pressione uma tecla (a‑z) para tentar</p>
+        <button onclick="reiniciar()">Nova partida</button>
+        <button onclick="voltarIdioma()">Trocar idioma</button>
+    </div>
+
     <div class="creditos">Desenvolvido por Marco Antonio</div>
 </div>
 
@@ -81,17 +97,17 @@
     (async function() {
         const response = await fetch('dados-forca.json');
         const dados = await response.json();
-        const palavras = dados.palavras;
         const estagiosForca = dados.estagiosForca;
 
         let palavra = "";
         let acertadas = new Set();
         let erradas = new Set();
         const maxTentativas = 6;
+        let palavrasAtuais = [];
 
         function escolherPalavra() {
-            const idx = Math.floor(Math.random() * palavras.length);
-            return palavras[idx].toUpperCase();
+            const idx = Math.floor(Math.random() * palavrasAtuais.length);
+            return palavrasAtuais[idx].toUpperCase();
         }
 
         function atualizarTela() {
@@ -104,7 +120,6 @@
             document.getElementById('erradas').textContent = 
                 erradas.size > 0 ? 'Letras erradas: ' + [...erradas].join(' ') : '';
 
-            // Verifica vitória ou derrota – sem emojis
             if (palavra.split('').every(l => acertadas.has(l))) {
                 document.getElementById('mensagem').textContent = 'Você venceu! A palavra era: ' + palavra;
                 document.removeEventListener('keydown', lidarTecla);
@@ -131,6 +146,7 @@
         }
 
         window.reiniciar = function() {
+            if (!palavrasAtuais.length) return;
             palavra = escolherPalavra();
             acertadas.clear();
             erradas.clear();
@@ -139,7 +155,20 @@
             document.addEventListener('keydown', lidarTecla);
         };
 
-        reiniciar();
+        window.iniciarJogo = function(idioma) {
+            palavrasAtuais = dados[idioma].palavras;
+            document.getElementById('selecao-idioma').style.display = 'none';
+            document.getElementById('jogo').style.display = 'block';
+            reiniciar();
+        };
+
+        window.voltarIdioma = function() {
+            document.getElementById('jogo').style.display = 'none';
+            document.getElementById('selecao-idioma').style.display = 'block';
+            document.removeEventListener('keydown', lidarTecla);
+            acertadas.clear();
+            erradas.clear();
+        };
     })();
 </script>
 </body>
