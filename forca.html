@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca ·</title>
+    <style>
+        body {
+            background: #1e1e1e;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .terminal {
+            background: #111;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,255,100,0.2);
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { margin-top: 0; }
+        .forca {
+            font-size: 1.2rem;
+            white-space: pre;
+            line-height: 1.3;
+            margin: 1rem 0;
+        }
+        .palavra {
+            font-size: 2rem;
+            letter-spacing: 8px;
+            margin: 1rem 0;
+        }
+        .letras-erradas {
+            color: #ff5555;
+            min-height: 1.5rem;
+        }
+        .mensagem {
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        button {
+            background: #00ff88;
+            color: #111;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-family: inherit;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+        button:hover { background: #00cc66; }
+        .creditos {
+            margin-top: 1rem;
+            opacity: 0.6;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="terminal">
+    <h1>Jogo da Forca</h1>
+    <div id="forca" class="forca"></div>
+    <div id="palavra" class="palavra"></div>
+    <div id="erradas" class="letras-erradas"></div>
+    <div id="mensagem" class="mensagem"></div>
+    <p style="margin-top:1rem;">Pressione uma tecla (a‑z) para tentar</p>
+    <button onclick="reiniciar()">Nova partida</button>
+    <div class="creditos">Desenvolvido por Marco Antonio</div>
+</div>
+
+<script>
+    (async function() {
+        const response = await fetch('dados-forca.json');
+        const dados = await response.json();
+        const palavras = dados.palavras;
+        const estagiosForca = dados.estagiosForca;
+
+        let palavra = "";
+        let acertadas = new Set();
+        let erradas = new Set();
+        const maxTentativas = 6;
+
+        function escolherPalavra() {
+            const idx = Math.floor(Math.random() * palavras.length);
+            return palavras[idx].toUpperCase();
+        }
+
+        function atualizarTela() {
+            const erros = erradas.size;
+            document.getElementById('forca').textContent = estagiosForca[Math.min(erros, estagiosForca.length - 1)];
+
+            const letrasPalavra = palavra.split('').map(l => acertadas.has(l) ? l : '_');
+            document.getElementById('palavra').textContent = letrasPalavra.join(' ');
+
+            document.getElementById('erradas').textContent = 
+                erradas.size > 0 ? 'Letras erradas: ' + [...erradas].join(' ') : '';
+
+            // Verifica vitória ou derrota – sem emojis
+            if (palavra.split('').every(l => acertadas.has(l))) {
+                document.getElementById('mensagem').textContent = 'Você venceu! A palavra era: ' + palavra;
+                document.removeEventListener('keydown', lidarTecla);
+            } else if (erros >= maxTentativas) {
+                document.getElementById('mensagem').textContent = 'Você perdeu! A palavra era: ' + palavra;
+                document.removeEventListener('keydown', lidarTecla);
+            } else {
+                document.getElementById('mensagem').textContent = '';
+            }
+        }
+
+        function lidarTecla(e) {
+            if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+                const letra = e.key.toUpperCase();
+                if (acertadas.has(letra) || erradas.has(letra)) return;
+
+                if (palavra.includes(letra)) {
+                    acertadas.add(letra);
+                } else {
+                    erradas.add(letra);
+                }
+                atualizarTela();
+            }
+        }
+
+        window.reiniciar = function() {
+            palavra = escolherPalavra();
+            acertadas.clear();
+            erradas.clear();
+            atualizarTela();
+            document.removeEventListener('keydown', lidarTecla);
+            document.addEventListener('keydown', lidarTecla);
+        };
+
+        reiniciar();
+    })();
+</script>
+</body>
+</html>
