@@ -84,7 +84,7 @@
 <div class="terminal">
     <!-- ========== TELA 1: MENU INICIAL ========== -->
     <div id="menu-inicial">
-        <h1>Jogo da Forca</h1>
+        <h1></h1>
         <pre class="arte-ascii">
   █████▒ ▒█████   ██▀███   ▄████▄   ▄▄▄
 ▓██   ▒ ▒██▒  ██▒▓██ ▒ ██▒▒██▀ ▀█  ▒████▄
@@ -117,7 +117,7 @@
     ░  ░      ░  ░ ░          ░ ░      ░  ░ ░  ░  ░      ░  ░
                  ░
         </pre>
-        <p>Escolha o idioma:</p>
+        <p></p>
         <button id="btn-ptbr">PT-BR</button>
         <button id="btn-ptpt">PT-PT</button>
     </div>
@@ -167,21 +167,23 @@
         let listenerTeclado = null;
         let idiomaAtual = null;
 
-        // Artes ASCII para vitória e derrota
+        // Artes ASCII para vitória e derrota (corrigidas)
         const asciiVenceu =
-"██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗\n",
-"██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝██║   ██║\n",
-"██║   ██║█████╗  ██╔██╗ ██║██║     █████╗  ██║   ██║\n",
-"╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██║   ██║\n",
- "╚████╔╝ ███████╗██║ ╚████║╚██████╗███████╗╚██████╔╝\n",
-  "╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ \n",
+            "██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗\n" +
+            "██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝██║   ██║\n" +
+            "██║   ██║█████╗  ██╔██╗ ██║██║     █████╗  ██║   ██║\n" +
+            "╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██║   ██║\n" +
+            " ╚████╔╝ ███████╗██║ ╚████║╚██████╗███████╗╚██████╔╝\n" +
+            "  ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ \n";
+
         const asciiPerdeu =
-            "██████╗ ███████╗██████╗ ██████╗ ███████╗██╗   ██╗\n",
-            "██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██║   ██║\n",
-            "██████╔╝█████╗  ██████╔╝██║  ██║█████╗  ██║   ██║\n",
-            "██╔═══╝ ██╔══╝  ██╔══██╗██║  ██║██╔══╝  ██║   ██║\n",
-            "██║     ███████╗██║  ██║██████╔╝███████╗╚██████╔╝\n",
-            "╚═╝     ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ \n",
+            "██████╗ ███████╗██████╗ ██████╗ ███████╗██╗   ██╗\n" +
+            "██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██║   ██║\n" +
+            "██████╔╝█████╗  ██████╔╝██║  ██║█████╗  ██║   ██║\n" +
+            "██╔═══╝ ██╔══╝  ██╔══██╗██║  ██║██╔══╝  ██║   ██║\n" +
+            "██║     ███████╗██║  ██║██████╔╝███████╗╚██████╔╝\n" +
+            "╚═╝     ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ \n";
+
         // Carrega o JSON
         fetch('dados-forca.json')
             .then(response => {
@@ -213,7 +215,6 @@
                 forcaDiv.textContent = estagiosForca[Math.min(erros, estagiosForca.length - 1)];
                 mensagemDiv.textContent = '';
             } else {
-                // Vitória ou derrota: exibe arte ASCII correspondente
                 if (palavra.split('').every(l => acertadas.has(l))) {
                     forcaDiv.textContent = asciiVenceu;
                     mensagemDiv.textContent = 'A palavra era: ' + palavra;
@@ -296,7 +297,6 @@
         btnPtPt.addEventListener('click', () => iniciarJogo('pt-pt'));
 
         btnNovoJogo.addEventListener('click', () => {
-            // Reinicia na mesma língua
             if (idiomaAtual) {
                 palavrasAtuais = dados[idiomaAtual].palavras;
                 reiniciar();
@@ -304,7 +304,6 @@
         });
 
         btnMudarLinguagem.addEventListener('click', () => {
-            // Volta para a tela de escolha
             removerOuvinteTeclado();
             jogoAtivo = false;
             jogoDiv.style.display = 'none';
