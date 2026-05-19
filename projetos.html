@@ -8,63 +8,93 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #eef2f5; color: #1e2a3e; line-height: 1.5; padding: 2rem 1rem;
+            background: #eef2f5;
+            color: #1e2a3e;
+            line-height: 1.5;
+            padding: 2rem 1rem;
         }
         .container {
-            max-width: 1100px; margin: 0 auto; background: white;
-            border-radius: 28px; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1); overflow: hidden;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
         .hero {
             background: linear-gradient(135deg, #0b2b40, #1a4a5f);
-            color: white; padding: 2rem 2rem 1.8rem 2rem; text-align: center;
+            color: white;
+            padding: 2rem 2rem 1.8rem 2rem;
+            text-align: center;
         }
         .hero h1 { font-size: 2.2rem; font-weight: 600; margin-bottom: 0.5rem; }
         .hero .sub { font-size: 1rem; opacity: 0.85; }
         .content { padding: 2rem; }
-        .section { margin-bottom: 2rem; }
-        .section-title {
-            font-size: 1.5rem; font-weight: 600; border-left: 5px solid #1e6f5c;
-            padding-left: 1rem; margin-bottom: 1rem; color: #0e3b4b;
-        }
-        .project-card {
-            background: #ffffff; border: 1px solid #e2edf2; border-radius: 20px;
-            padding: 1.5rem; transition: all 0.25s; display: flex; flex-direction: column;
-            gap: 0.6rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03); margin-bottom: 1.5rem;
-        }
-        .project-card:hover {
-            border-color: #a0c4d4; box-shadow: 0 10px 20px -8px rgba(0,0,0,0.08);
-            transform: translateY(-2px);
-        }
-        .project-card h3 {
-            font-size: 1.2rem; color: #1c6d62; display: flex; align-items: center; gap: 0.5rem;
-        }
-        .project-card p { color: #3a4e5e; font-size: 0.95rem; }
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
-        .tech-stack span {
-            background: #e8f0f4; color: #1e5f6e; font-size: 0.7rem;
-            padding: 0.2rem 0.7rem; border-radius: 20px;
-        }
-        .project-links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: auto; }
-        .project-links a {
-            background: #1e6f5c; color: white; padding: 0.4rem 1.2rem;
-            border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 500;
-        }
-        .project-links a:hover { background: #145244; }
-        .project-links a.secondary { background: #e8f0f4; color: #1e5f6e; }
-        .project-links a.secondary:hover { background: #d0e0ea; }
         .back-btn {
-            display: inline-block; margin-bottom: 1.5rem; background: transparent;
-            color: #1e6f5c; padding: 0.4rem 1rem; border-radius: 20px;
-            text-decoration: none; font-size: 0.9rem; border: 1px solid #1e6f5c;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: transparent;
+            color: #1e6f5c;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid #1e6f5c;
+            transition: all 0.2s;
         }
         .back-btn:hover { background: #eef5f3; }
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #e2edf2;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            transition: all 0.25s;
+        }
+        .project-card:hover {
+            border-color: #a0c4d4;
+            box-shadow: 0 10px 20px -8px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .project-card h3 { color: #1c6d62; margin-bottom: 0.5rem; }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin: 0.5rem 0;
+        }
+        .tech-stack span {
+            background: #e8f0f4;
+            color: #1e5f6e;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+        }
+        .project-links a {
+            background: #1e6f5c;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+        .project-links a:hover { background: #145244; }
         footer {
-            background: #f4f9fc; text-align: center; padding: 1.2rem;
-            font-size: 0.75rem; color: #4b6f7e; border-top: 1px solid #dee9ef;
+            background: #f4f9fc;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.75rem;
+            color: #4b6f7e;
+            border-top: 1px solid #dee9ef;
         }
         @media (max-width: 700px) {
-            .hero h1 { font-size: 1.6rem; } .content { padding: 1.5rem; }
-            .section-title { font-size: 1.3rem; }
+            .hero h1 { font-size: 1.6rem; }
+            .content { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -72,51 +102,66 @@
 <div class="container">
     <div class="hero">
         <h1>🚀 Meus Projetos</h1>
-        <div class="sub">Portfólio de trabalhos acadêmicos e pessoais</div>
+        <div class="sub">Trabalhos acadêmicos e pessoais em destaque</div>
     </div>
     <div class="content">
         <a href="index.html" class="back-btn">⬅ Voltar ao Currículo</a>
 
-        <!-- Card do Geoapify Attractions Finder (substitua pelo que já ajustamos antes) -->
-        <div class="section">
-            <div class="section-title">🗺️ Explorador de Atrações Turísticas</div>
-            <div class="project-card">
-                <h3>Geoapify Attractions Finder — Python + APIs</h3>
-                <p>Aplicação interativa em Python que, a partir de coordenadas e raio de busca, consulta a API Geoapify para encontrar pontos de interesse (restaurantes, museus, hotéis etc.). Utiliza <strong>pandas</strong> para estruturar os dados, integra a API Restcountries para obter a moeda local de cada país e permite ordenação por nome ou distância. O resultado é exportado para um arquivo <strong>CSV</strong> pronto para análise.</p>
-                <div class="tech-stack">
-                    <span>Python</span><span>APIs REST</span><span>Geoapify</span><span>Restcountries</span>
-                    <span>Pandas</span><span>CSV</span><span>Entrada do Usuário</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/projeto%202%20grupo/main.py" target="_blank">📂 Ver Código</a>
-                    <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/academicos/projeto%202%20grupo" target="_blank" class="secondary">📁 Pasta do Projeto</a>
-                </div>
+        <!-- Projeto 1: Venda de Ingressos (Java) -->
+        <div class="project-card">
+            <h3>🎫 Sistema de Venda de Ingressos — Java / POO</h3>
+            <p>Aplicação completa para reserva de ingressos de eventos culturais, desenvolvida como projeto da disciplina de Programação Orientada a Objetos. Implementa herança, polimorfismo, tratamento de exceções e persistência em arquivo.</p>
+            <div class="tech-stack">
+                <span>Java</span><span>POO</span><span>Herança</span><span>Arquivos</span>
+            </div>
+            <div class="project-links">
+                <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/POO2324EPn/TicketBookingApp.java" target="_blank">📂 Código-fonte</a>
+                <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/academicos/POO2324EPn" target="_blank">📁 Pasta completa</a>
             </div>
         </div>
 
-        <!-- Card do Jogo da Forca (versão final com wordslist.py) -->
-        <div class="section">
-            <div class="section-title">🎮 Jogo da Forca — Terminal</div>
-            <div class="project-card">
-                <h3>Hangman Game com ASCII Art, Dicas e Salvamento</h3>
-                <p>Jogo da forca completo em Python, executado no terminal. Inclui <strong>desenho da forca em ASCII</strong>, validação de entrada, <strong>suporte a acentos e cedilhas</strong>, <strong>sistema de dicas</strong> (gasta 5 pontos para revelar uma letra), <strong>pontuação acumulada</strong> salva em arquivo (<code>save.txt</code>), e <strong>menu interativo</strong> com opção de escolha entre listas de palavras com ou sem acentos. Código modularizado em <code>main.py</code>, <code>game.py</code>, <code>ferramentas.py</code> e <code>wordslist.py</code>.</p>
-                <div class="tech-stack">
-                    <span>Python</span><span>Terminal</span><span>Jogos</span><span>Strings</span>
-                    <span>Estruturas de Controle</span><span>Arquivos</span><span>Módulos</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/Forca/main.py" target="_blank">📂 main.py</a>
-                    <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/Forca/game.py" target="_blank">📂 game.py</a>
-                    <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/Forca/ferramentas.py" target="_blank">📂 ferramentas.py</a>
-                    <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/Forca/wordslist.py" target="_blank">📂 wordslist.py</a>
-                    <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/academicos/Forca" target="_blank" class="secondary">📁 Pasta do Projeto</a>
-                </div>
+        <!-- Projeto 2: Buscador de Atrações (Python + API) -->
+        <div class="project-card">
+            <h3>🗺️ Explorador de Atrações Turísticas — Python + APIs</h3>
+            <p>Ferramenta que consulta a API Geoapify para encontrar pontos de interesse próximos a uma coordenada e utiliza a API Restcountries para obter a moeda local. Estruturado com pandas para manipulação dos dados.</p>
+            <div class="tech-stack">
+                <span>Python</span><span>APIs REST</span><span>Pandas</span><span>JSON</span>
+            </div>
+            <div class="project-links">
+                <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/projeto%202%20grupo/main.py" target="_blank">📂 Código principal</a>
+                <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/academicos/projeto%202%20grupo" target="_blank">📁 Pasta completa</a>
+            </div>
+        </div>
+
+        <!-- Projeto 3: Conversor Seguro de Tipos (Python) -->
+        <div class="project-card">
+            <h3>🛡️ Conversor de Tipos com Tratamento de Exceções</h3>
+            <p>Conjunto de funções para conversão segura de strings para tipos numéricos (int, float), com validação completa, testes unitários e laço de repetição até entrada válida.</p>
+            <div class="tech-stack">
+                <span>Python</span><span>Exceções</span><span>Validação</span><span>Testes</span>
+            </div>
+            <div class="project-links">
+                <a href="https://github.com/marco4SC/PortifolioHUB/blob/main/academicos/aula06/examples/ex6cnvrt.py" target="_blank">📂 Código-fonte</a>
+                <a href="https://github.com/marco4SC/PortifolioHUB/tree/main/academicos/aula06/examples" target="_blank">📁 Pasta da aula</a>
+            </div>
+        </div>
+
+        <!-- Projeto 4: Este portfólio -->
+        <div class="project-card">
+            <h3>🌐 Portfólio Pessoal — HTML/CSS/JS</h3>
+            <p>Site responsivo publicado via GitHub Pages, com currículo interativo e botão de impressão para PDF. Todo o código é versionado e aberto.</p>
+            <div class="tech-stack">
+                <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>GitHub Pages</span>
+            </div>
+            <div class="project-links">
+                <a href="https://github.com/marco4SC/PortifolioHUB" target="_blank">📁 Repositório</a>
             </div>
         </div>
     </div>
     <footer>
-        <p>👨‍💻 Projetos acadêmicos — Marco Antonio de Souza Carvalho | <a href="index.html">Voltar ao Portfólio</a></p>
+        <p>👨‍💻 Projetos de Marco Antonio de Souza Carvalho | <a href="index.html">Voltar ao Portfólio</a></p>
     </footer>
 </div>
 </body>
 </html>
+
